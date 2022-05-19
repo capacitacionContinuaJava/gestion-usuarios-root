@@ -1,0 +1,94 @@
+-- public.rhtemployee definition
+
+-- Drop table
+
+-- DROP TABLE public.rhtemployee;
+
+CREATE TABLE public.rhtemployee (
+	employee_id int4 NOT NULL,
+	address varchar(255) NOT NULL,
+	first_name varchar(255) NOT NULL,
+	last_name varchar(255) NOT NULL,
+	email varchar(255) NULL,
+	CONSTRAINT rhtemployee_pkey PRIMARY KEY (employee_id)
+);
+
+
+-- public.rhtpersona definition
+
+-- Drop table
+
+-- DROP TABLE public.rhtpersona;
+
+CREATE TABLE public.rhtpersona (
+	person_id numeric NOT NULL,
+	first_name varchar NOT NULL,
+	last_name varchar NOT NULL,
+	document_number varchar NOT NULL,
+	document_type varchar NOT NULL,
+	status varchar NULL,
+	create_date timestamp NOT NULL,
+	create_user_id varchar NOT NULL,
+	modifeid_user_id varchar NULL,
+	modified_date timestamp NULL,
+	CONSTRAINT rhtpersona_pk PRIMARY KEY (person_id)
+);
+
+
+-- public.rhtuser definition
+
+-- Drop table
+
+-- DROP TABLE public.rhtuser;
+
+CREATE TABLE public.rhtuser (
+	user_id numeric NOT NULL,
+	user_name varchar NOT NULL,
+	status bool NOT NULL,
+	create_user_id varchar NOT NULL,
+	create_date timestamp NOT NULL,
+	modified_user_id varchar NULL,
+	modified_date timestamp NULL,
+	person_id numeric NOT NULL,
+	CONSTRAINT rhtuser_pk PRIMARY KEY (user_id),
+	CONSTRAINT rhtuser_fk FOREIGN KEY (person_id) REFERENCES public.rhtpersona(person_id)
+);
+
+
+-- public.rhpersonsec definition
+
+-- DROP SEQUENCE public.rhpersonsec;
+
+CREATE SEQUENCE public.rhpersonsec
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+
+-- public.rhuemployeesec definition
+
+-- DROP SEQUENCE public.rhuemployeesec;
+
+CREATE SEQUENCE public.rhuemployeesec
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+
+-- public.rhusersec definition
+
+-- DROP SEQUENCE public.rhusersec;
+
+CREATE SEQUENCE public.rhusersec
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
