@@ -12,7 +12,7 @@ import static com.querydsl.core.types.Projections.bean;
 import static ec.com.gestion.entity.QUserEntity.userEntity;
 
 /**
- * Class to implements user repository interface.
+ * Class to implement user repository interface.
  */
 @Lazy
 @Repository

@@ -54,6 +54,22 @@ CREATE TABLE rhtuser (
 	CONSTRAINT rhtuser_fk FOREIGN KEY (person_id) REFERENCES public.rhtpersona(person_id)
 );
 
+-- public.rhtclient definition
+
+-- Drop table
+
+-- DROP TABLE rhtclient;
+
+CREATE TABLE rhtclient (
+	client_id numeric NOT NULL,
+	status bool NOT NULL,
+	create_client_id varchar NOT NULL,
+	create_date timestamp NOT NULL,
+	modified_client_id varchar NULL,
+	modified_date timestamp NULL,
+	CONSTRAINT rhtclient_pkey PRIMARY KEY (client_id)
+);
+
 
 -- public.rhpersonsec definition
 
@@ -86,6 +102,18 @@ CREATE SEQUENCE rhuemployeesec
 -- DROP SEQUENCE rhusersec;
 
 CREATE SEQUENCE rhusersec
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+	
+-- rhusersec definition
+
+-- DROP SEQUENCE rhclientsec;
+
+CREATE SEQUENCE rhclientsec
 	INCREMENT BY 1
 	MINVALUE 1
 	MAXVALUE 9223372036854775807

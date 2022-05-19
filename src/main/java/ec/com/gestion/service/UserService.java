@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Class to implements user service interface methods.
+ * Class to implement user service interface methods.
  */
 @Lazy
 @Transactional
@@ -27,6 +27,7 @@ public class UserService implements  IUserService {
      */
     @Override
     public List<UserVO> findAll() {
+
         return this.userRepository.findAll();
     }
 
@@ -35,6 +36,7 @@ public class UserService implements  IUserService {
      */
     @Override
     public UserVO findByUserId(Long id) {
+
         return this.userRepository.findByUserId(id);
     }
 
