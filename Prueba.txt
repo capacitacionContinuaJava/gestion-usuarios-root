@@ -1,4 +1,0 @@
-Incorporando modulo de usuarios
-Correccion de QA 
-Correcion de Estilas en la pantall
-Correccion de error
