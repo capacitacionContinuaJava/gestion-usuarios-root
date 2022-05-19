@@ -1,10 +1,10 @@
--- public.rhtemployee definition
+-- rhtemployee definition
 
 -- Drop table
 
--- DROP TABLE public.rhtemployee;
+-- DROP TABLE rhtemployee;
 
-CREATE TABLE public.rhtemployee (
+CREATE TABLE rhtemployee (
 	employee_id int4 NOT NULL,
 	address varchar(255) NOT NULL,
 	first_name varchar(255) NOT NULL,
@@ -18,9 +18,9 @@ CREATE TABLE public.rhtemployee (
 
 -- Drop table
 
--- DROP TABLE public.rhtpersona;
+-- DROP TABLE rhtpersona;
 
-CREATE TABLE public.rhtpersona (
+CREATE TABLE rhtpersona (
 	person_id numeric NOT NULL,
 	first_name varchar NOT NULL,
 	last_name varchar NOT NULL,
@@ -39,9 +39,9 @@ CREATE TABLE public.rhtpersona (
 
 -- Drop table
 
--- DROP TABLE public.rhtuser;
+-- DROP TABLE rhtuser;
 
-CREATE TABLE public.rhtuser (
+CREATE TABLE rhtuser (
 	user_id numeric NOT NULL,
 	user_name varchar NOT NULL,
 	status bool NOT NULL,
@@ -57,9 +57,9 @@ CREATE TABLE public.rhtuser (
 
 -- public.rhpersonsec definition
 
--- DROP SEQUENCE public.rhpersonsec;
+-- DROP SEQUENCE rhpersonsec;
 
-CREATE SEQUENCE public.rhpersonsec
+CREATE SEQUENCE rhpersonsec
 	INCREMENT BY 1
 	MINVALUE 1
 	MAXVALUE 9223372036854775807
@@ -68,11 +68,11 @@ CREATE SEQUENCE public.rhpersonsec
 	NO CYCLE;
 
 
--- public.rhuemployeesec definition
+-- rhuemployeesec definition
 
--- DROP SEQUENCE public.rhuemployeesec;
+-- DROP SEQUENCE rhuemployeesec;
 
-CREATE SEQUENCE public.rhuemployeesec
+CREATE SEQUENCE rhuemployeesec
 	INCREMENT BY 1
 	MINVALUE 1
 	MAXVALUE 9223372036854775807
@@ -81,11 +81,11 @@ CREATE SEQUENCE public.rhuemployeesec
 	NO CYCLE;
 
 
--- public.rhusersec definition
+-- rhusersec definition
 
--- DROP SEQUENCE public.rhusersec;
+-- DROP SEQUENCE rhusersec;
 
-CREATE SEQUENCE public.rhusersec
+CREATE SEQUENCE rhusersec
 	INCREMENT BY 1
 	MINVALUE 1
 	MAXVALUE 9223372036854775807
