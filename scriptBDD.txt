@@ -1,81 +1,154 @@
--- rhtemployee definition
+-- public.rhtclient definition
 
 -- Drop table
 
--- DROP TABLE rhtemployee;
+-- DROP TABLE public.rhtclient;
 
-CREATE TABLE rhtemployee (
-	employee_id int4 NOT NULL,
-	address varchar(255) NOT NULL,
-	first_name varchar(255) NOT NULL,
-	last_name varchar(255) NOT NULL,
-	email varchar(255) NULL,
-	CONSTRAINT rhtemployee_pkey PRIMARY KEY (employee_id)
+CREATE TABLE public.rhtclient (
+	client_id numeric NOT NULL,
+	status bool NOT NULL,
+	create_user_id varchar NOT NULL,
+	create_date timestamp NOT NULL,
+	modified_user_id varchar NULL,
+	modified_date timestamp NULL,
+	CONSTRAINT rhtclient_pkey PRIMARY KEY (client_id)
 );
 
 
--- public.rhtpersona definition
+-- public.rhtcompany definition
 
 -- Drop table
 
--- DROP TABLE rhtpersona;
+-- DROP TABLE public.rhtcompany;
 
-CREATE TABLE rhtpersona (
+CREATE TABLE public.rhtcompany (
+	company_id numeric NOT NULL, -- Secuencial para código de la compañia
+	"name" varchar NOT NULL, -- Nombre de la compañia
+	address varchar NOT NULL, -- Dirección de la compañia
+	phone_number varchar NULL, -- Télefono de la compañia
+	status bool NULL, -- Estado del registro
+	create_user_id varchar NOT NULL, -- Usuario que crea el registro
+	create_date timestamp NOT NULL, -- Fecha creación del registro
+	modified_user_id varchar NULL, -- Usuario que modifica el registro
+	modified_date timestamp NULL, -- Fecha modificación del registro
+	CONSTRAINT rhtcompany_pk PRIMARY KEY (company_id)
+);
+COMMENT ON TABLE public.rhtcompany IS 'Tabla para registar información de la empresa';
+
+-- Column comments
+
+COMMENT ON COLUMN public.rhtcompany.company_id IS 'Secuencial para código de la compañia';
+COMMENT ON COLUMN public.rhtcompany."name" IS 'Nombre de la compañia';
+COMMENT ON COLUMN public.rhtcompany.address IS 'Dirección de la compañia';
+COMMENT ON COLUMN public.rhtcompany.phone_number IS 'Télefono de la compañia';
+COMMENT ON COLUMN public.rhtcompany.status IS 'Estado del registro';
+COMMENT ON COLUMN public.rhtcompany.create_user_id IS 'Usuario que crea el registro';
+COMMENT ON COLUMN public.rhtcompany.create_date IS 'Fecha creación del registro';
+COMMENT ON COLUMN public.rhtcompany.modified_user_id IS 'Usuario que modifica el registro';
+COMMENT ON COLUMN public.rhtcompany.modified_date IS 'Fecha modificación del registro';
+
+
+-- public.rhtperson definition
+
+-- Drop table
+
+-- DROP TABLE public.rhtperson;
+
+CREATE TABLE public.rhtperson (
 	person_id numeric NOT NULL,
 	first_name varchar NOT NULL,
 	last_name varchar NOT NULL,
 	document_number varchar NOT NULL,
 	document_type varchar NOT NULL,
-	status varchar NULL,
+	status bool NULL,
 	create_date timestamp NOT NULL,
 	create_user_id varchar NOT NULL,
-	modifeid_user_id varchar NULL,
+	modified_user_id varchar NULL,
 	modified_date timestamp NULL,
-	CONSTRAINT rhtpersona_pk PRIMARY KEY (person_id)
+	CONSTRAINT rhtperson_pk PRIMARY KEY (person_id)
 );
+
+
+-- public.rhtemployee definition
+
+-- Drop table
+
+-- DROP TABLE public.rhtemployee;
+
+CREATE TABLE public.rhtemployee (
+	employee_id int4 NOT NULL,
+	person_id numeric NOT NULL,
+	company_id numeric NOT NULL, -- Codigo de compañia
+	status bool NULL,
+	create_date timestamp NOT NULL,
+	create_user_id varchar NOT NULL,
+	modified_user_id varchar NULL,
+	modified_date timestamp NULL,
+	CONSTRAINT rhtemployee_pkey PRIMARY KEY (employee_id),
+	CONSTRAINT rhtemployee_company_fk FOREIGN KEY (company_id) REFERENCES public.rhtcompany(company_id),
+	CONSTRAINT rhtemployee_person_fk FOREIGN KEY (person_id) REFERENCES public.rhtperson(person_id)
+);
+
+-- Column comments
+
+COMMENT ON COLUMN public.rhtemployee.company_id IS 'Codigo de compañia';
 
 
 -- public.rhtuser definition
 
 -- Drop table
 
--- DROP TABLE rhtuser;
+-- DROP TABLE public.rhtuser;
 
-CREATE TABLE rhtuser (
+CREATE TABLE public.rhtuser (
 	user_id numeric NOT NULL,
+	person_id numeric NOT NULL,
+	company_id numeric NOT NULL, -- Codigo de la compañia
 	user_name varchar NOT NULL,
 	status bool NOT NULL,
 	create_user_id varchar NOT NULL,
 	create_date timestamp NOT NULL,
 	modified_user_id varchar NULL,
 	modified_date timestamp NULL,
-	person_id numeric NOT NULL,
 	CONSTRAINT rhtuser_pk PRIMARY KEY (user_id),
-	CONSTRAINT rhtuser_fk FOREIGN KEY (person_id) REFERENCES public.rhtpersona(person_id)
+	CONSTRAINT rhtuser_company_fk FOREIGN KEY (company_id) REFERENCES public.rhtcompany(company_id),
+	CONSTRAINT rhtuser_person_fk FOREIGN KEY (person_id) REFERENCES public.rhtperson(person_id)
 );
 
--- public.rhtclient definition
+-- Column comments
 
--- Drop table
+COMMENT ON COLUMN public.rhtuser.company_id IS 'Codigo de la compañia';
 
--- DROP TABLE rhtclient;
 
-CREATE TABLE rhtclient (
-	client_id numeric NOT NULL,
-	status bool NOT NULL,
-	create_client_id varchar NOT NULL,
-	create_date timestamp NOT NULL,
-	modified_client_id varchar NULL,
-	modified_date timestamp NULL,
-	CONSTRAINT rhtclient_pkey PRIMARY KEY (client_id)
-);
+-- public.rhclientsec definition
 
+-- DROP SEQUENCE public.rhclientsec;
+
+CREATE SEQUENCE public.rhclientsec
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- public.rhcompanysec definition
+
+-- DROP SEQUENCE public.rhcompanysec;
+
+CREATE SEQUENCE public.rhcompanysec
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
 
 -- public.rhpersonsec definition
 
--- DROP SEQUENCE rhpersonsec;
+-- DROP SEQUENCE public.rhpersonsec;
 
-CREATE SEQUENCE rhpersonsec
+CREATE SEQUENCE public.rhpersonsec
 	INCREMENT BY 1
 	MINVALUE 1
 	MAXVALUE 9223372036854775807
@@ -84,11 +157,11 @@ CREATE SEQUENCE rhpersonsec
 	NO CYCLE;
 
 
--- rhuemployeesec definition
+-- public.rhemployeesec definition
 
--- DROP SEQUENCE rhuemployeesec;
+-- DROP SEQUENCE public.rhemployeesec;
 
-CREATE SEQUENCE rhuemployeesec
+CREATE SEQUENCE public.rhemployeesec
 	INCREMENT BY 1
 	MINVALUE 1
 	MAXVALUE 9223372036854775807
@@ -97,23 +170,11 @@ CREATE SEQUENCE rhuemployeesec
 	NO CYCLE;
 
 
--- rhusersec definition
+-- public.rhusersec definition
 
--- DROP SEQUENCE rhusersec;
+-- DROP SEQUENCE public.rhusersec;
 
-CREATE SEQUENCE rhusersec
-	INCREMENT BY 1
-	MINVALUE 1
-	MAXVALUE 9223372036854775807
-	START 1
-	CACHE 1
-	NO CYCLE;
-	
--- rhusersec definition
-
--- DROP SEQUENCE rhclientsec;
-
-CREATE SEQUENCE rhclientsec
+CREATE SEQUENCE public.rhusersec
 	INCREMENT BY 1
 	MINVALUE 1
 	MAXVALUE 9223372036854775807

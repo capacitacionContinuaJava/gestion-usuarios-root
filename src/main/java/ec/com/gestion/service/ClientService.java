@@ -47,13 +47,13 @@ public class ClientService implements IClientService {
         ClientEntity clientEntity = ClientEntity.builder()
                 .clientId(clientVO.getClientId())
                 .status(clientVO.getStatus())
-                .createClientId(clientVO.getCreateClientId())
+                .createUserId(clientVO.getCreateUserId())
                 .createdDate(new Date())
                 .build();
         if (clientEntity.getClientId() == null){
             this.clientRepository.save(clientEntity);
         }else {
-            clientEntity.setModifiedClientId(clientVO.getModifiedClientId());
+            clientEntity.setModifiedUserId(clientVO.getModifiedUserId());
             clientEntity.setModifiedDate(new Date());
             this.clientRepository.update(clientEntity);
         }

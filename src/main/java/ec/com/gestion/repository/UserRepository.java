@@ -10,6 +10,7 @@ import java.util.List;
 
 import static com.querydsl.core.types.Projections.bean;
 import static ec.com.gestion.entity.QUserEntity.userEntity;
+import static ec.com.gestion.entity.QPersonEntity.personEntity;
 
 /**
  * Class to implement user repository interface.
@@ -43,6 +44,21 @@ public class UserRepository extends QueryDslRepository<UserEntity> implements IU
                 userEntity.userId.as("userId"),
                 userEntity.userName.as("userName")))
                 .where(userEntity.userId.eq(id)).fetchOne();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UserVO findByUserName(String userName) {
+        return from(userEntity)
+                .innerJoin(personEntity).on(userEntity.personId.eq(personEntity.personId))
+                .select(bean(UserVO.class,
+                        userEntity.userId,
+                        userEntity.userName,
+                        personEntity.firstName,
+                        personEntity.lastName))
+                .where(userEntity.userName.eq(userName)).fetchOne();
     }
 
 }

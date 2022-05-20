@@ -1,0 +1,12 @@
+--Consultas a una sola tabla
+select * from rhtcompany;
+select * from rhtperson;
+select * from rhtuser;
+select * from rhtemployee;
+select * from rhtclient;
+
+--Consultas entre tablas
+select  u.user_name, p.first_name, p.last_name from rhtuser u 
+inner join rhtperson p on u.person_id  = p.person_id
+where u.user_name  = 'jzambrazo';
+

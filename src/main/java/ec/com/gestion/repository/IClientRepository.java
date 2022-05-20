@@ -13,7 +13,6 @@ public interface IClientRepository extends IQueryDslRepository<ClientEntity> {
     /**
      * Method to find client list.
      */
-
     List<ClientVO> findAll();
 
     /**
@@ -21,6 +20,5 @@ public interface IClientRepository extends IQueryDslRepository<ClientEntity> {
      * @param id
      * @return
      */
-
     ClientVO findByClientId(Long id);
 }

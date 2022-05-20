@@ -8,11 +8,11 @@ import java.util.List;
  * Interface to management client service methods.
  */
 public interface IClientService {
+
     /**
      * Method to find client list.
      * @return
      */
-
     List<ClientVO> findAll();
 
     /**
@@ -20,14 +20,12 @@ public interface IClientService {
      * @param id
      * @return
      */
-
     ClientVO findByClientId(Long id);
 
     /**
      * Method to create cient.
      * @param clientVO
      */
-    
     void createClient(ClientVO clientVO);
 
 }

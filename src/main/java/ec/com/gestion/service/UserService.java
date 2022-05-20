@@ -27,7 +27,6 @@ public class UserService implements  IUserService {
      */
     @Override
     public List<UserVO> findAll() {
-
         return this.userRepository.findAll();
     }
 
@@ -36,8 +35,15 @@ public class UserService implements  IUserService {
      */
     @Override
     public UserVO findByUserId(Long id) {
-
         return this.userRepository.findByUserId(id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UserVO findByUserName(String userName) {
+        return  this.userRepository.findByUserName(userName);
     }
 
     /**
@@ -47,6 +53,8 @@ public class UserService implements  IUserService {
     public void createUser(UserVO userVO) {
         UserEntity userEntity = UserEntity.builder()
                 .userId(userVO.getUserId())
+                .personId(userVO.getPersonId())
+                .companyId(userVO.getCompanyId())
                 .userName(userVO.getUserName())
                 .status(userVO.getStatus())
                 .createUserId(userVO.getCreateUserId())

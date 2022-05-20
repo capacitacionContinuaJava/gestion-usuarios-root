@@ -8,32 +8,29 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Class to management user entity.
+ * Class to management employee entity.
  */
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "rhtuser")
-public class UserEntity implements Serializable {
+@Entity(name = "rhtemployee")
+public class EmployeeEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "rhusersec", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "rhusersec", sequenceName = "rhusersec", allocationSize = 1)
-    @Column(name = "user_id")
-    private Long userId;
+    @GeneratedValue(generator = "rhemployeesec", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "rhemployeesec", sequenceName = "rhemployeesec", allocationSize = 1)
+    @Column(name = "employee_id")
+    private Long employeeId;
 
     @Column(name = "person_id")
     private Long personId;
 
     @Column(name = "company_id")
     private Long companyId;
-
-    @Column(name = "user_name")
-    private String userName;
 
     @Column(name = "status")
     private Boolean status;
@@ -58,5 +55,5 @@ public class UserEntity implements Serializable {
     @JoinColumn(name = "company_id", referencedColumnName = "company_id", insertable  = false, updatable = false)
     private CompanyEntity companyEntity;
 
-    public Long getId(){return userId;};
+    public Long getId(){return employeeId;};
 }

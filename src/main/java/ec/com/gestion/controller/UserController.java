@@ -35,6 +35,21 @@ public class UserController {
     }
 
     /**
+     * Service to find user by user name.
+     * @param userName
+     * @return
+     */
+    @GetMapping("/findByUserName/{userName}")
+    public ResponseEntity<UserVO> findById(@PathVariable("userName") String userName){
+        try {
+            UserVO userVo = this.userService.findByUserName(userName);
+            return new ResponseEntity<>(userVo, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Service to find all users.
      * @return
      */

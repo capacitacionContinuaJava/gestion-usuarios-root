@@ -20,22 +20,22 @@ public class ClientEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "rhtclientsec", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "rhtclientsec", sequenceName = "rhtclientsec", allocationSize = 1)
+    @GeneratedValue(generator = "rhclientsec", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "rhclientsec", sequenceName = "rhclientsec", allocationSize = 1)
     @Column(name = "client_id")
     private Long clientId;
 
     @Column(name = "status")
     private Boolean status;
 
-    @Column(name = "create_client_id")
-    private String createClientId;
+    @Column(name = "create_user_id")
+    private String createUserId;
 
     @Column(name = "create_date")
     private Date createdDate;
 
-    @Column(name = "modified_client_id")
-    private String modifiedClientId;
+    @Column(name = "modified_user_id")
+    private String modifiedUserId;
 
     @Column(name = "modified_date")
     private Date modifiedDate;
