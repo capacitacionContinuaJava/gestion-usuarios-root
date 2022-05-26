@@ -40,5 +40,13 @@ public class ClientEntity implements Serializable {
     @Column(name = "modified_date")
     private Date modifiedDate;
 
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id", insertable = false, updatable = false )
+    private PersonEntity personEntity;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id", insertable = false, updatable = false )
+    private CompanyEntity companyEntity;
+
     public Long getId(){return clientId;};
 }
