@@ -53,6 +53,9 @@ public class CompanyEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyEntity")
     private List<EmployeeEntity> employeeEntities;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyEntity")
+    private List<ClientEntity> clientEntities;
+
     public Long getId(){return  companyId;};
 
 }

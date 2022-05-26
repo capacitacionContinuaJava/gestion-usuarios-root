@@ -1,20 +1,83 @@
--- public.rhtclient definition
+-- DROP SCHEMA public;
 
--- Drop table
+CREATE SCHEMA public AUTHORIZATION postgres;
 
--- DROP TABLE public.rhtclient;
+COMMENT ON SCHEMA public IS 'standard public schema';
 
-CREATE TABLE public.rhtclient (
-	client_id numeric NOT NULL,
-	status bool NOT NULL,
-	create_user_id varchar NOT NULL,
-	create_date timestamp NOT NULL,
-	modified_user_id varchar NULL,
-	modified_date timestamp NULL,
-	CONSTRAINT rhtclient_pkey PRIMARY KEY (client_id)
-);
+-- DROP SEQUENCE public.rhclientsec;
 
+CREATE SEQUENCE public.rhclientsec
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
 
+-- Permissions
+
+ALTER SEQUENCE public.rhclientsec OWNER TO postgres;
+GRANT ALL ON SEQUENCE public.rhclientsec TO postgres;
+
+-- DROP SEQUENCE public.rhcompanysec;
+
+CREATE SEQUENCE public.rhcompanysec
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE public.rhcompanysec OWNER TO postgres;
+GRANT ALL ON SEQUENCE public.rhcompanysec TO postgres;
+
+-- DROP SEQUENCE public.rhemployeesec;
+
+CREATE SEQUENCE public.rhemployeesec
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE public.rhemployeesec OWNER TO postgres;
+GRANT ALL ON SEQUENCE public.rhemployeesec TO postgres;
+
+-- DROP SEQUENCE public.rhpersonsec;
+
+CREATE SEQUENCE public.rhpersonsec
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE public.rhpersonsec OWNER TO postgres;
+GRANT ALL ON SEQUENCE public.rhpersonsec TO postgres;
+
+-- DROP SEQUENCE public.rhusersec;
+
+CREATE SEQUENCE public.rhusersec
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-- Permissions
+
+ALTER SEQUENCE public.rhusersec OWNER TO postgres;
+GRANT ALL ON SEQUENCE public.rhusersec TO postgres;
 -- public.rhtcompany definition
 
 -- Drop table
@@ -47,6 +110,11 @@ COMMENT ON COLUMN public.rhtcompany.create_date IS 'Fecha creación del registro
 COMMENT ON COLUMN public.rhtcompany.modified_user_id IS 'Usuario que modifica el registro';
 COMMENT ON COLUMN public.rhtcompany.modified_date IS 'Fecha modificación del registro';
 
+-- Permissions
+
+ALTER TABLE public.rhtcompany OWNER TO postgres;
+GRANT ALL ON TABLE public.rhtcompany TO postgres;
+
 
 -- public.rhtperson definition
 
@@ -67,6 +135,42 @@ CREATE TABLE public.rhtperson (
 	modified_date timestamp NULL,
 	CONSTRAINT rhtperson_pk PRIMARY KEY (person_id)
 );
+
+-- Permissions
+
+ALTER TABLE public.rhtperson OWNER TO postgres;
+GRANT ALL ON TABLE public.rhtperson TO postgres;
+
+
+-- public.rhtclient definition
+
+-- Drop table
+
+-- DROP TABLE public.rhtclient;
+
+CREATE TABLE public.rhtclient (
+	client_id numeric NOT NULL,
+	status bool NOT NULL,
+	create_user_id varchar NOT NULL,
+	create_date timestamp NOT NULL,
+	modified_user_id varchar NULL,
+	modified_date timestamp NULL,
+	person_id numeric NOT NULL, -- Clave foranea de la persona
+	company_id numeric NOT NULL, -- Clave foranea de la compañia
+	CONSTRAINT rhtclient_pkey PRIMARY KEY (client_id),
+	CONSTRAINT rhtclient_company_fk FOREIGN KEY (company_id) REFERENCES public.rhtcompany(company_id),
+	CONSTRAINT rhtclient_person_fk FOREIGN KEY (person_id) REFERENCES public.rhtperson(person_id)
+);
+
+-- Column comments
+
+COMMENT ON COLUMN public.rhtclient.person_id IS 'Clave foranea de la persona';
+COMMENT ON COLUMN public.rhtclient.company_id IS 'Clave foranea de la compañia';
+
+-- Permissions
+
+ALTER TABLE public.rhtclient OWNER TO postgres;
+GRANT ALL ON TABLE public.rhtclient TO postgres;
 
 
 -- public.rhtemployee definition
@@ -92,6 +196,11 @@ CREATE TABLE public.rhtemployee (
 -- Column comments
 
 COMMENT ON COLUMN public.rhtemployee.company_id IS 'Codigo de compañia';
+
+-- Permissions
+
+ALTER TABLE public.rhtemployee OWNER TO postgres;
+GRANT ALL ON TABLE public.rhtemployee TO postgres;
 
 
 -- public.rhtuser definition
@@ -119,65 +228,15 @@ CREATE TABLE public.rhtuser (
 
 COMMENT ON COLUMN public.rhtuser.company_id IS 'Codigo de la compañia';
 
+-- Permissions
 
--- public.rhclientsec definition
-
--- DROP SEQUENCE public.rhclientsec;
-
-CREATE SEQUENCE public.rhclientsec
-	INCREMENT BY 1
-	MINVALUE 1
-	MAXVALUE 9223372036854775807
-	START 1
-	CACHE 1
-	NO CYCLE;
-
--- public.rhcompanysec definition
-
--- DROP SEQUENCE public.rhcompanysec;
-
-CREATE SEQUENCE public.rhcompanysec
-	INCREMENT BY 1
-	MINVALUE 1
-	MAXVALUE 9223372036854775807
-	START 1
-	CACHE 1
-	NO CYCLE;
-
--- public.rhpersonsec definition
-
--- DROP SEQUENCE public.rhpersonsec;
-
-CREATE SEQUENCE public.rhpersonsec
-	INCREMENT BY 1
-	MINVALUE 1
-	MAXVALUE 9223372036854775807
-	START 1
-	CACHE 1
-	NO CYCLE;
+ALTER TABLE public.rhtuser OWNER TO postgres;
+GRANT ALL ON TABLE public.rhtuser TO postgres;
 
 
--- public.rhemployeesec definition
-
--- DROP SEQUENCE public.rhemployeesec;
-
-CREATE SEQUENCE public.rhemployeesec
-	INCREMENT BY 1
-	MINVALUE 1
-	MAXVALUE 9223372036854775807
-	START 1
-	CACHE 1
-	NO CYCLE;
 
 
--- public.rhusersec definition
+-- Permissions
 
--- DROP SEQUENCE public.rhusersec;
-
-CREATE SEQUENCE public.rhusersec
-	INCREMENT BY 1
-	MINVALUE 1
-	MAXVALUE 9223372036854775807
-	START 1
-	CACHE 1
-	NO CYCLE;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO public;
