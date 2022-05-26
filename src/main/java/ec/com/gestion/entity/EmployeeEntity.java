@@ -1,5 +1,6 @@
 package ec.com.gestion.entity;
 
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,23 +8,29 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Class to management client entity
+ * Class to management employee entity.
  */
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "rhtclient")
-public class ClientEntity implements Serializable {
+@Entity(name = "rhtemployee")
+public class EmployeeEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "rhclientsec", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "rhclientsec", sequenceName = "rhclientsec", allocationSize = 1)
-    @Column(name = "client_id")
-    private Long clientId;
+    @GeneratedValue(generator = "rhemployeesec", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "rhemployeesec", sequenceName = "rhemployeesec", allocationSize = 1)
+    @Column(name = "employee_id")
+    private Long employeeId;
+
+    @Column(name = "person_id")
+    private Long personId;
+
+    @Column(name = "company_id")
+    private Long companyId;
 
     @Column(name = "status")
     private Boolean status;
@@ -41,12 +48,12 @@ public class ClientEntity implements Serializable {
     private Date modifiedDate;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "person_id", referencedColumnName = "person_id", insertable = false, updatable = false )
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id", insertable  = false, updatable = false)
     private PersonEntity personEntity;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "person_id", referencedColumnName = "person_id", insertable = false, updatable = false )
+    @JoinColumn(name = "company_id", referencedColumnName = "company_id", insertable  = false, updatable = false)
     private CompanyEntity companyEntity;
 
-    public Long getId(){return clientId;};
+    public Long getId(){return employeeId;};
 }

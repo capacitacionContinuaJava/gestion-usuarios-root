@@ -1,27 +1,28 @@
 package ec.com.gestion.vo;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 /**
- * Class to management user object properties.
+ * Class to management company object properties.
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserVO {
+public class CompanyVO {
 
-    private Long userId;
-    private Long personId;
     private Long companyId;
-    private String userName;
+    private String name;
+    private String address;
+    private String phoneNumber;
     private Boolean status;
     private String createUserId;
     private Date createdDate;
     private String modifiedUserId;
     private Date modifiedDate;
-    private String firstName;
-    private String lastName;
 }

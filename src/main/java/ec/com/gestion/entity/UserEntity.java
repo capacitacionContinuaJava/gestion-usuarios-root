@@ -21,10 +21,16 @@ public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "rhtusersec", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "rhtusersec", sequenceName = "rhtusersec", allocationSize = 1)
+    @GeneratedValue(generator = "rhusersec", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "rhusersec", sequenceName = "rhusersec", allocationSize = 1)
     @Column(name = "user_id")
     private Long userId;
+
+    @Column(name = "person_id")
+    private Long personId;
+
+    @Column(name = "company_id")
+    private Long companyId;
 
     @Column(name = "user_name")
     private String userName;
@@ -43,6 +49,14 @@ public class UserEntity implements Serializable {
 
     @Column(name = "modified_date")
     private Date modifiedDate;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id", insertable  = false, updatable = false)
+    private PersonEntity personEntity;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", referencedColumnName = "company_id", insertable  = false, updatable = false)
+    private CompanyEntity companyEntity;
 
     public Long getId(){return userId;};
 }

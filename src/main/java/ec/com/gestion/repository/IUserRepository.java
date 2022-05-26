@@ -22,4 +22,11 @@ public interface IUserRepository extends IQueryDslRepository<UserEntity> {
      */
     UserVO findByUserId(Long id);
 
+    /**
+     * Find user by user name.
+     * @param userName
+     * @return
+     */
+    UserVO findByUserName(String userName);
+
 }

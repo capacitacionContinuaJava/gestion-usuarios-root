@@ -23,6 +23,13 @@ public interface IUserService {
     UserVO findByUserId(Long  id);
 
     /**
+     * Method to find user by name.
+     * @param userName
+     * @return
+     */
+    UserVO findByUserName(String userName);
+
+    /**
      * Method to create user.
      * @param userVO
      */
