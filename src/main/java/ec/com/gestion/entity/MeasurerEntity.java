@@ -4,6 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Class to management measurer entity
@@ -20,11 +21,14 @@ public class MeasurerEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "rhtmeasurersec", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "rhtmeasurersec", sequenceName = "rhtmeasurersec", allocationSize = 1)
+    @GeneratedValue(generator = "rhsecmeasurer", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "rhsecmeasurer", sequenceName = "rhsecmeasurer", allocationSize = 1)
 
     @Column(name = "measurer_id")
     private Long measurerId;
+
+    @Column(name = "client_id")
+    private Long clientId;
 
     @Column(name = "measurermeterm3")
     private Long measurermeterm3;
@@ -44,7 +48,10 @@ public class MeasurerEntity implements Serializable {
     @Column(name = "modified_date")
     private Date modifiedDate;
 
-    public Long getId(){return measurerId;};
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id", insertable = false, updatable = false )
+    private ClientEntity clientEntity;
 
+    public Long getId(){return measurerId;};
 
 }

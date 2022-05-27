@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Class to management client entity
@@ -20,10 +21,16 @@ public class ClientEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "rhclientsec", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "rhclientsec", sequenceName = "rhclientsec", allocationSize = 1)
+    @GeneratedValue(generator = "rhsecclient", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "rhsecclient", sequenceName = "rhsecclient", allocationSize = 1)
     @Column(name = "client_id")
     private Long clientId;
+
+    @Column(name = "person_id")
+    private Long personId;
+
+    @Column(name = "company_id")
+    private Long companyId;
 
     @Column(name = "status")
     private Boolean status;
@@ -45,8 +52,11 @@ public class ClientEntity implements Serializable {
     private PersonEntity personEntity;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "person_id", referencedColumnName = "person_id", insertable = false, updatable = false )
+    @JoinColumn(name = "company_id", referencedColumnName = "company_id", insertable = false, updatable = false )
     private CompanyEntity companyEntity;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientEntity")
+    private List<MeasurerEntity> measurerEntities;
 
     public Long getId(){return clientId;};
 }

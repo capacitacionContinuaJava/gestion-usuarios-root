@@ -21,8 +21,8 @@ public class PersonEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "rhpersonsec", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "rhpersonsec", sequenceName = "rhpersonsec", allocationSize = 1)
+    @GeneratedValue(generator = "rhsecperson", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "rhsecperson", sequenceName = "rhsecperson", allocationSize = 1)
     @Column(name = "person_id")
     private Long personId;
 

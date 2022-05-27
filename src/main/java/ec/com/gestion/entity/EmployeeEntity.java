@@ -21,8 +21,8 @@ public class EmployeeEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "rhemployeesec", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "rhemployeesec", sequenceName = "rhemployeesec", allocationSize = 1)
+    @GeneratedValue(generator = "rhsecemployee", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "rhsecemployee", sequenceName = "rhsecemployee", allocationSize = 1)
     @Column(name = "employee_id")
     private Long employeeId;
 
