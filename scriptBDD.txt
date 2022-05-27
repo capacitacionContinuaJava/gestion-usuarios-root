@@ -18,7 +18,6 @@ CREATE TABLE public.rhtcompany (
 	CONSTRAINT rhpkcompany PRIMARY KEY (company_id)
 );
 COMMENT ON TABLE public.rhtcompany IS 'Tabla para registar información de la empresa';
-
 -- Column comments
 
 COMMENT ON COLUMN public.rhtcompany.company_id IS 'Secuencial para código de la compañia';
