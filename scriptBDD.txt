@@ -1,5 +1,6 @@
 -- public.rhtcompany definition
 
+
 -- Drop table
 
 -- DROP TABLE public.rhtcompany;
