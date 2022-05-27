@@ -50,6 +50,20 @@ public class UserController {
     }
 
     /**
+     * Service to login user.
+     * @param userVO
+     * @return
+     */
+    @PostMapping("/login")
+    public ResponseEntity<Boolean> login(@RequestBody UserVO userVO){
+        try {
+            return new ResponseEntity<>(this.userService.login(userVO), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Service to find all users.
      * @return
      */

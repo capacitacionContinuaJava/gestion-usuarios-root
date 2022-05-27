@@ -68,4 +68,17 @@ public class UserService implements  IUserService {
             this.userRepository.update(userEntity);
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean login(UserVO userVO){
+        UserVO userVoFound = this.userRepository.findByUserName(userVO.getUserName());
+        if(userVoFound != null && userVoFound.getPassword().equals(userVO.getPassword())){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

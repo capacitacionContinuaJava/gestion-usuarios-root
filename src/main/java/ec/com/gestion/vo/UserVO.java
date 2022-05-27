@@ -17,6 +17,7 @@ public class UserVO {
     private Long personId;
     private Long companyId;
     private String userName;
+    private String password;
     private Boolean status;
     private String createUserId;
     private Date createdDate;

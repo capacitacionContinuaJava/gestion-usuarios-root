@@ -56,6 +56,7 @@ public class UserRepository extends QueryDslRepository<UserEntity> implements IU
                 .select(bean(UserVO.class,
                         userEntity.userId,
                         userEntity.userName,
+                        userEntity.password,
                         personEntity.firstName,
                         personEntity.lastName))
                 .where(userEntity.userName.eq(userName)).fetchOne();

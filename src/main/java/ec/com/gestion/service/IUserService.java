@@ -30,6 +30,13 @@ public interface IUserService {
     UserVO findByUserName(String userName);
 
     /**
+     * Method to login user.
+     * @param userVO
+     * @return
+     */
+    Boolean login(UserVO userVO);
+
+    /**
      * Method to create user.
      * @param userVO
      */
